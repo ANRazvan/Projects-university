@@ -10,7 +10,6 @@ private:
 	ListIterator(const SortedIteratedList& list);
 
 	SortedIteratedList::SLLnode* current;
-	SortedIteratedList::SLLnode* head;
 
 	//TODO - Representation
 public:

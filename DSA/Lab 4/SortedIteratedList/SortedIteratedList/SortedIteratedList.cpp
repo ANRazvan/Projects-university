@@ -38,19 +38,20 @@ TComp SortedIteratedList::getElement(ListIterator poz) const {
 }
 
 TComp SortedIteratedList::remove(ListIterator& poz) {
-
-	if(!poz.valid())
+	//TODO - Implementation
+	if (!poz.valid())
 		throw exception();
 	TComp old = poz.getCurrent();
-	if (poz.current->next == nullptr)
-		poz.current->info == NULL_TCOMP;
-	else {
-		poz.current->info = poz.current->next->info;
-		SLLnode* temp = poz.current->next;
-		poz.current->next = poz.current->next->next;
-		free(temp);
+	ListIterator aux = poz;
+	aux.next();
+	if (aux.valid()) {
+		poz.current->info = aux.current->info;
+		poz.current->next = aux.current->next;
 	}
-	
+	else {
+		poz.current->info = NULL_TCOMP;
+	}
+
 	this->count--;
 	return old;
 }

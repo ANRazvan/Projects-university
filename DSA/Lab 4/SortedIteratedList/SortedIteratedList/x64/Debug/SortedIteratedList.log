@@ -1,12 +1,11 @@
 ﻿  ExtendedTest.cpp
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(76,22): warning C4101: 'ex': unreferenced local variable
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(98,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(113,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(127,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(137,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(240,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(291,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(76,22): warning C4101: 'ex': unreferenced local variable
+D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(98,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(113,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(127,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(137,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(239,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\SortedIteratedList\ExtendedTest.cpp(293,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   SortedIteratedList.cpp
-D:\Facultate\DSA\Lab 4\SortedIteratedList\SortedIteratedList\SortedIteratedList.cpp(46,21): warning C4553: '==': result of expression not used; did you intend '='?
   Generating Code...
-  SortedIteratedList.vcxproj -> D:\Facultate\DSA\Lab 4\SortedIteratedList\x64\Debug\SortedIteratedList.exe
+  SortedIteratedList.vcxproj -> D:\Facultate\Faculty-projects\DSA\Lab 4\SortedIteratedList\x64\Debug\SortedIteratedList.exe

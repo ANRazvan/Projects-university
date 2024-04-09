@@ -162,7 +162,6 @@ void testAddAndSearch(Relation r) {
 	//check the relation order
 	ListIterator it = list.first();
 	assert(it.valid());
-	cout << "gere" << endl;
 	TComp prev = it.getCurrent();
 	it.next();
 	it.valid();
@@ -245,6 +244,9 @@ void testDeleteSearch(Relation r) {
 			TComp deleteCurrent = list.remove(it1);
 			assert(deleteCurrent != deleted);
 			assert(deleteCurrent == v); 
+			if (list.search(v).valid())
+				cout << "nu e valid ba " << endl;
+
 			assert(!list.search(v).valid());
 
 			if (!list.isEmpty()) {
