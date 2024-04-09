@@ -1,0 +1,8 @@
+﻿  ExtendedTest.cpp
+D:\Facultate\SortedMap - Razvan\SortedMap - Razvan\SortedMap\ExtendedTest.cpp(118,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\SortedMap - Razvan\SortedMap - Razvan\SortedMap\ExtendedTest.cpp(128,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\SortedMap - Razvan\SortedMap - Razvan\SortedMap\ExtendedTest.cpp(138,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\SortedMap - Razvan\SortedMap - Razvan\SortedMap\ExtendedTest.cpp(146,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\SortedMap - Razvan\SortedMap - Razvan\SortedMap\ExtendedTest.cpp(254,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\SortedMap - Razvan\SortedMap - Razvan\SortedMap\ExtendedTest.cpp(353,6): error C2374: 'number': redefinition; multiple initialization
+D:\Facultate\SortedMap - Razvan\SortedMap - Razvan\SortedMap\ExtendedTest.cpp(334,6): message : see declaration of 'number'

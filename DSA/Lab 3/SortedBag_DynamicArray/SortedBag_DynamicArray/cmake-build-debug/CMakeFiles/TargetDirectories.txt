@@ -1,0 +1,3 @@
+D:/Facultate/SortedBag_DynamicArray/SortedBag_DynamicArray/cmake-build-debug/CMakeFiles/SortedBag_DynamicArray.dir
+D:/Facultate/SortedBag_DynamicArray/SortedBag_DynamicArray/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Facultate/SortedBag_DynamicArray/SortedBag_DynamicArray/cmake-build-debug/CMakeFiles/rebuild_cache.dir
