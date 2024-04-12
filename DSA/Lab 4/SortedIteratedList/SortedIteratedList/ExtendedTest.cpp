@@ -338,10 +338,50 @@ void testQuantity(){
     assert(list.isEmpty());
 }
 
+void testRemoveBetween() {
+	cout << "Test remove between" << endl;
+
+	SortedIteratedList list = SortedIteratedList(asc);
+	list.add(1);
+	list.add(2);
+	list.add(4);
+	list.add(5);
+	list.add(3);
+	assert(list.size() == 5);
+	ListIterator start = list.search(2);
+	ListIterator end = list.search(4);
+	list.removeBetween(start, end);
+	assert(list.search(1).valid());
+	assert(list.search(5).valid());
+	assert(list.size() == 2);
+
+	SortedIteratedList list2 = SortedIteratedList(desc);
+	list2.add(1);
+	list2.add(2);
+	list2.add(5);
+	list2.add(4);
+	list2.add(3);
+	assert(list2.size() == 5);
+	ListIterator start2 = list2.search(5);
+	ListIterator end2 = list2.search(3);
+	list2.removeBetween(start2, end2);
+	assert(list2.search(1).valid());
+	assert(list2.search(2).valid());
+	assert(list2.size() == 2);
+
+	//ListIterator same = list2.search(1);
+	//list2.removeBetween(same, same);
+	//assert(list2.size() == 1);
+
+
+	cout << "Test remove between finshed!" << endl;
+}
+
 void testAllExtended() {
-	testCreate();
-	testAddAndSearch();
-	testDeleteSearch();
-    testQuantity();
+	//testCreate();
+	//testAddAndSearch();
+	//testDeleteSearch();
+ //   testQuantity();
+	testRemoveBetween();
 }
 

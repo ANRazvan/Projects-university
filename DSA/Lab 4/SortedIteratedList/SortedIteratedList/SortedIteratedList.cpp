@@ -5,47 +5,63 @@ using namespace std;
 #include <exception>
 
 SortedIteratedList::SortedIteratedList(Relation r) {
-	//TODO - Implementation
+	// Constructor:
+	// BC: Theta(1)
+	// WC: Theta(1)
+	// AC: Theta(1)
 	this->rel = r;
 	this->count = 0;
 	this->head = nullptr;
 }
 
 int SortedIteratedList::size() const {
-	//TODO - Implementation
+	// Size:
+	// BC: Theta(1)
+	// WC: Theta(1)
+	// AC: Theta(1)
 	return this->count;
 }
 
 bool SortedIteratedList::isEmpty() const {
-	//TODO - Implementation
+	// isEmpty:
+	// BC: Theta(1)
+	// WC: Theta(1)
+	// AC: Theta(1)
 	return this->count == 0;
 }
 
 ListIterator SortedIteratedList::first() const {
-	//TODO - Implementation
+	// First:
+	// BC: Theta(1)
+	// WC: Theta(1)
+	// AC: Theta(1)
 	ListIterator poz(*this);
 	return poz;
-
 }
 
 TComp SortedIteratedList::getElement(ListIterator poz) const {
-	//TODO - Implementation
+	// getElement:
+	// BC: Theta(1)
+	// WC: Theta(1)
+	// AC: Theta(1)
 	if (!poz.valid())
 		throw exception();
 	return poz.getCurrent();
 }
 
 TComp SortedIteratedList::remove(ListIterator& poz) {
-	//TODO - Implementation
+	// Remove:
+	// BC: Theta(1)
+	// WC: Theta(n)
+	// AC: O(n)
 	if (!poz.valid())
 		throw exception();
 	TComp old = poz.getCurrent();
-	
+
 	if (this->head == poz.current) {
 		this->head = this->head->next;
 		delete poz.current;
 		poz.current = this->head;
-
 	}
 	else {
 		SLLnode* current = this->head;
@@ -55,14 +71,70 @@ TComp SortedIteratedList::remove(ListIterator& poz) {
 		current->next = poz.current->next;
 		delete poz.current;
 		poz.current = current->next;
-
 	}
-
 	this->count--;
 	return old;
 }
 
+void SortedIteratedList::removeBetween(ListIterator& start, ListIterator& end) {
+	// RemoveBetween:
+	// BC: Theta(1)
+	// WC: Theta(n)
+	// AC: O(n)
+
+	if (!start.valid() || !end.valid())
+		throw exception();
+	
+	if (start.current == end.current) {
+		if (this->head == start.current) {
+			delete this->head;
+			this->head = start.current->next;
+		}
+		SLLnode* next = start.current->next;
+		delete start.current;
+		start.current = next;
+		this->count--;
+		return;
+	}
+
+
+	if (this->head == start.current) {
+		this->head = end.current->next;
+
+		delete end.current;
+		this->count--;
+
+		while (start.current != end.current) {
+			SLLnode* next = start.current->next;
+			delete start.current;
+			start.current = next;
+			this->count--;
+		}
+	}
+	else {
+		SLLnode* current = this->head;
+		while (current->next != start.current) {
+			current = current->next;
+		}
+		current->next = end.current->next;
+
+		while (start.current != end.current) {
+			SLLnode* next = start.current->next;
+			delete start.current;
+			start.current = next;
+			this->count--;
+		}
+		delete end.current;
+		this->count--;
+	}
+	
+}	
+
 ListIterator SortedIteratedList::search(TComp e) const {
+	// Search:
+	// BC: Theta(1)
+	// WC: Theta(n)
+	// AC: O(n)
 	ListIterator poz(*this);
 	while (poz.valid()) {
 		if (poz.getCurrent() == e) {
@@ -74,7 +146,10 @@ ListIterator SortedIteratedList::search(TComp e) const {
 }
 
 void SortedIteratedList::add(TComp e) {
-	//TODO - Implementation
+	// Add:
+	// BC: Theta(1)
+	// WC: Theta(n)
+	// AC: O(n)
 	// We create a new node with the given element
 	SLLnode* newNode = new SLLnode;
 	newNode->info = e;
@@ -107,9 +182,11 @@ void SortedIteratedList::add(TComp e) {
 }
 
 SortedIteratedList::~SortedIteratedList() {
-	//TODO - Implementation
-	SLLnode* current = head;
-
+	// Destructor:
+	// BC: Theta(n)
+	// WC: Theta(n)
+	// AC: Theta(n)
+	SLLnode* current = this->head;
 	while (current != nullptr) {
 		SLLnode* next = current->next;
 		delete current;
