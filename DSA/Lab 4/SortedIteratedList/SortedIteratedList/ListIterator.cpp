@@ -4,32 +4,32 @@
 #include <iostream>
 using namespace std;
 
-ListIterator::ListIterator(const SortedIteratedList& list) : list(list){
+ListIterator::ListIterator(const SortedIteratedList& list) : list(list) {
 	//TODO - Implementation
 	this->current = this->list.head;
 }
 
-void ListIterator::first(){
+void ListIterator::first() {
 	//TODO - Implementation
 	this->current = this->list.head;
 }
 
-void ListIterator::next(){
+void ListIterator::next() {
 	//TODO - Implementation
 	if (this->current == nullptr || this->current->info == NULL_TCOMP)
 		throw exception();
 	this->current = this->current->next;
 }
 
-bool ListIterator::valid() const{
+bool ListIterator::valid() const {
 	//TODO - Implementation
-	if (this->current == nullptr || this->current->info == NULL_TCOMP) 
+	if (this->current == nullptr/* || this->current->info == NULL_TCOMP*/)
 		return false;
-	else 
+	else
 		return true;
 }
 
-TComp ListIterator::getCurrent() const{
+TComp ListIterator::getCurrent() const {
 	//TODO - Implementation
 	return this->current->info;
 }

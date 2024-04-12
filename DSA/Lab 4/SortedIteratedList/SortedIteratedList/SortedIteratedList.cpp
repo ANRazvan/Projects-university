@@ -8,9 +8,7 @@ SortedIteratedList::SortedIteratedList(Relation r) {
 	//TODO - Implementation
 	this->rel = r;
 	this->count = 0;
-	this->head = new SLLnode;
-	this->head->info = NULL_TCOMP;
-	this->head->next = nullptr;
+	this->head = nullptr;
 }
 
 int SortedIteratedList::size() const {
@@ -27,7 +25,7 @@ ListIterator SortedIteratedList::first() const {
 	//TODO - Implementation
 	ListIterator poz(*this);
 	return poz;
-	
+
 }
 
 TComp SortedIteratedList::getElement(ListIterator poz) const {
@@ -42,21 +40,29 @@ TComp SortedIteratedList::remove(ListIterator& poz) {
 	if (!poz.valid())
 		throw exception();
 	TComp old = poz.getCurrent();
-	ListIterator aux = poz;
-	aux.next();
-	if (aux.valid()) {
-		poz.current->info = aux.current->info;
-		poz.current->next = aux.current->next;
+	
+	if (this->head == poz.current) {
+		this->head = this->head->next;
+		delete poz.current;
+		poz.current = this->head;
+
 	}
 	else {
-		poz.current->info = NULL_TCOMP;
+		SLLnode* current = this->head;
+		while (current->next != poz.current) {
+			current = current->next;
+		}
+		current->next = poz.current->next;
+		delete poz.current;
+		poz.current = current->next;
+
 	}
 
 	this->count--;
 	return old;
 }
 
-ListIterator SortedIteratedList::search(TComp e) const{
+ListIterator SortedIteratedList::search(TComp e) const {
 	ListIterator poz(*this);
 	while (poz.valid()) {
 		if (poz.getCurrent() == e) {
@@ -69,38 +75,44 @@ ListIterator SortedIteratedList::search(TComp e) const{
 
 void SortedIteratedList::add(TComp e) {
 	//TODO - Implementation
-	SLLnode* current = this->head;
+	// We create a new node with the given element
+	SLLnode* newNode = new SLLnode;
+	newNode->info = e;
+	newNode->next = nullptr;
 
-	// if we need to insert on first position
-	if (!this->rel(this->head->info, e)) {
-		SLLnode* newNode = new SLLnode;
-		newNode->info = this->head->info;
-		newNode->next = this->head->next;
-		this->head->info = e;
-		this->head->next = newNode;
+	// We check if the list is empty
+	if (this->head == nullptr) {
+		this->head = newNode;
 		this->count++;
 		return;
 	}
-	//check if the element exists already
+
+	// We check if the element should be inserted at the beginning of the list
+	if (!this->rel(this->head->info, e)) {
+		newNode->next = this->head;
+		this->head = newNode;
+		this->count++;
+		return;
+	}
+
+	// We find the position where the element should be inserted
+	SLLnode* current = this->head;
 	while (current->next != nullptr && this->rel(current->next->info, e)) {
 		current = current->next;
 	}
 
-	if(this->head->info == NULL_TCOMP) {
-		this->head->info = e;
-		this->head->next = nullptr;
-		this->count++;
-	}
-	else {
-		SLLnode* newNode = new SLLnode;
-		newNode->info = e;
-		newNode->next = current->next;
-		current->next = newNode;
-		this->count++;
-	}
-
+	newNode->next = current->next;
+	current->next = newNode;
+	this->count++;
 }
 
 SortedIteratedList::~SortedIteratedList() {
 	//TODO - Implementation
+	SLLnode* current = head;
+
+	while (current != nullptr) {
+		SLLnode* next = current->next;
+		delete current;
+		current = next;
+	}
 }
