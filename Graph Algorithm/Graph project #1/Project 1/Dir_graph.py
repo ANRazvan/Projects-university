@@ -1,5 +1,5 @@
 from random import randint
-
+import heapq
 class Dir_Graph:
     def __init__(self, n):
         self.n = n
@@ -247,3 +247,42 @@ class Dir_Graph:
                 print(x)
             for y in self.parse_nout(x):
                 print(x, y, self.dcost[(x, y)])
+
+    def dijkstra(self, s):
+        '''Returns a tuple of two dictionaries: prev and dist, each having as keys all
+        the accessible vertices from s and the values are: the parent (None for the root) and the distance
+        from s
+        '''
+        queue = [(0, s)]
+        prev = {s: None}
+        dist = {s: 0}
+        while len(queue) > 0:
+            dx, x = heapq.heappop(queue)
+            nout = self.parse_nout(x)
+            for y in nout:
+                if y not in prev.keys() or dist[x] + self.dcost[(x, y)] < dist[y]:
+                    prev[y] = x;
+                    dist[y] = dist[x] + self.dcost[(x, y)]
+                    heapq.heappush(queue, (dist[y], y))
+
+        return prev, dist
+
+    def min_cost_path_dijkstra(self, s, t):
+        if not self.is_vertex(s) or not self.is_vertex(t):
+            raise ValueError("Invalid vertices")
+        prev, dist = self.dijkstra(s)
+        print(f"prev={prev}")
+        print(f"dist={dist}")
+        if t not in prev:
+            raise ValueError("No path")
+        v = t
+        result = []
+        cost = 0
+        while (v != s):
+            cost += self.dcost[(prev[v], v)]
+            result.append(v)
+            v = prev[v]
+        result.append(s)
+        result.reverse()
+        return result,cost
+

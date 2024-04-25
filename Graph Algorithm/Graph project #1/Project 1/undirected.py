@@ -190,7 +190,6 @@ class Graph:
             if not self.visited[u]: # if the vertex wasn't visited, we call the dfs function recursively
                 self.dfs(u, component) # we call the dfs function recursively
 
-
     def connected_components(self):
         """
         This function goes through every vertex of the graph
@@ -209,3 +208,38 @@ class Graph:
                 components.append(component) # we add the component to the list of components
 
         return components
+
+    def connected_components_graphs(self):
+        """
+        This function goes through every vertex of the graph
+        if the vertex wasn't visited till that point, it creates a new component
+        containing it and calls the dfs algorithm to get its connected components
+        we then add the list of components to the final list
+        in the end we reinitialize the visited list with false in case of another future call
+        :return: a list of graphs (a graph for each connected component)
+        """
+        components = []  # the list of all connected components represented as graphs
+        self.visited = [False] * len(self.parse_vertices())  # we reinitialize the visited list
+        for v in self.parse_vertices():  # we parse all the vertices
+            if not self.visited[v]:  # if the vertex wasn't visited till that point
+                component = []  # we create a new component
+                self.dfs(v, component)  # we call the dfs algorithm
+                # Create a new graph for the current component
+                subgraph = Graph(0)
+                # Add vertices to the subgraph
+                for vertex in component:
+                    subgraph.add_vertex(vertex)
+                # Add edges to the subgraph
+                for vertex in component:
+                    for neighbor in self.parse_nout(vertex):
+                        if neighbor in component:
+                            try:
+                                subgraph.add_edge(vertex, neighbor, self.dcost[(vertex, neighbor)])
+                            except ValueError:
+                                pass
+                components.append(subgraph)  # we add the graph representing the component to the list of components
+
+        return components
+
+    def min_cost_path_dijkstra(self, s, t):
+        return 0;

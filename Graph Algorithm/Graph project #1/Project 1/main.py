@@ -97,7 +97,7 @@ def create_random_dir_graph(n, m):
     while m != 0:
         a = randint(0, n - 1)
         b = randint(0, n - 1)
-        cost = randint(-10, 10)
+        cost = randint(1, 10)
         if not g.is_edge(a, b):
             g.add_edge(a, b, cost)
             m = m - 1
@@ -126,6 +126,7 @@ def print_menu_dir():
     print("17. Read from a save")
     print("18. Create a random graph")
     print("19. Print the connected components of the undirected graph")
+    print("20. Display the minimum cost path between two vertices")
     print("0. Exit")
 
 
@@ -144,12 +145,12 @@ if __name__ == '__main__':
     except ValueError as ve:
         print(ve)
 
-    filename1 = "graph.txt"
+    filename1 = "d1.txt"
     n, m = read_nb(filename1)
     n = int(n)
     m = int(m)
-    #graph = Dir_Graph(n)
-    graph = Graph(n)
+    graph = Dir_Graph(n)
+    #graph = Graph(n)
     read_graph(filename1, graph)
     while True:
         print_menu_dir()
@@ -200,10 +201,12 @@ if __name__ == '__main__':
                 n, m = read_nb(filename)
                 n = int(n)
                 m = int(m)
-                if opt_graph == 1:
-                    graph = Dir_Graph(n)
-                else:
-                    graph = Graph(n)
+                # if opt_graph == 1:
+                #     graph = Dir_Graph(n)
+                # else:
+                #     graph = Graph(n)
+                graph = Dir_Graph(n)
+                #graph = Graph(n)
                 read_graph(filename, graph)
             elif option == "16":
                 filename = input("Enter the filename: ")
@@ -218,12 +221,23 @@ if __name__ == '__main__':
             elif option == "18":
                 n = int(input("Enter the number of vertices: "))
                 m = int(input("Enter the number of edges: "))
-                graph.create_random_graph(n, m)
+                graph = create_random_dir_graph(n, m)
             elif option == "19":
-                components = graph.connected_components()
+                # components = graph.connected_components()
+                # print("Connected Components:")
+                # for component in components:
+                #     print("Component:")
+                #     print(component)
+                components = graph.connected_components_graphs()
                 print("Connected Components:")
                 for component in components:
-                    print(component)
+                    print("Component:")
+                    component.print_graph()
+            elif option == "20":
+                x = int(input("Enter the start vertex: "))
+                y = int(input("Enter the end vertex: "))
+                path, cost = graph.min_cost_path_dijkstra(x, y)
+                print(path, "and the cost is: ", cost)
             elif option == "0":
                 exit()
         except ValueError as ve:
