@@ -243,3 +243,35 @@ class Graph:
 
     def min_cost_path_dijkstra(self, s, t):
         return 0;
+
+    def kruskal_min_spanning_tree(self):
+        # Initialize result list to store MST
+        result = []
+
+        # Initialize a list to store parent of each vertex
+        parent = [i for i in range(self.n)]
+
+        # Find the root of the set containing vertex 'i'
+        def find(i):
+            if parent[i] == i:
+                return i
+            parent[i] = find(parent[i])
+            return parent[i]
+
+        # Merge two sets containing u and v
+        def union(u, v):
+            root_u = find(u)
+            root_v = find(v)
+            parent[root_u] = root_v
+
+        # Sort edges by weight
+        edges = [(self.dcost[edge], edge[0], edge[1]) for edge in self.dcost]
+        edges.sort()
+
+        # Iterate through sorted edges and add them to MST if they don't form a cycle
+        for weight, u, v in edges:
+            if find(u) != find(v):
+                result.append((u, v, weight))
+                union(u, v)
+
+        return result

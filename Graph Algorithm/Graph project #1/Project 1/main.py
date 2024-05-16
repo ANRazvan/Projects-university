@@ -149,8 +149,8 @@ if __name__ == '__main__':
     n, m = read_nb(filename1)
     n = int(n)
     m = int(m)
-    graph = Dir_Graph(n)
-    #graph = Graph(n)
+    #graph = Dir_Graph(n)
+    graph = Graph(n)
     read_graph(filename1, graph)
     while True:
         print_menu_dir()
@@ -205,8 +205,8 @@ if __name__ == '__main__':
                 #     graph = Dir_Graph(n)
                 # else:
                 #     graph = Graph(n)
-                graph = Dir_Graph(n)
-                #graph = Graph(n)
+                #graph = Dir_Graph(n)
+                graph = Graph(n)
                 read_graph(filename, graph)
             elif option == "16":
                 filename = input("Enter the filename: ")
@@ -238,6 +238,10 @@ if __name__ == '__main__':
                 y = int(input("Enter the end vertex: "))
                 path, cost = graph.min_cost_path_dijkstra(x, y)
                 print(path, "and the cost is: ", cost)
+            elif option == "21":
+                result = graph.kruskal_min_spanning_tree()
+                for edge in result:
+                    print(edge)
             elif option == "0":
                 exit()
         except ValueError as ve:
