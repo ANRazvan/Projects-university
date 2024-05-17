@@ -5,6 +5,11 @@
 using namespace std;
 
 SMIterator::SMIterator(const SortedMap& m) : map(m){
+	/*
+		BC: Theta(1) - when the map has only one element
+		TC : O(n + m*(n/2)) 
+		WC: Theta(n + m*) - when the map is full and the elements are in the reverse order
+	*/
 	//TODO - Implementation
 	this->currentPos = 0;
 	this->elements = new TElem[m.nrElems];
@@ -13,7 +18,7 @@ SMIterator::SMIterator(const SortedMap& m) : map(m){
 	}
 	Relation rel = this->map.rel;
 	for(int i = 0; i < this->map.m; i++)
-		if(this->map.T[i] != NULL_TPAIR)
+		if(this->map.T[i] != NULL_TPAIR && this->map.T[i] != DELETED_TPAIR)
 		{
 			if (this->elements[0] == NULL_TPAIR) {
 				this->elements[0] = this->map.T[i];

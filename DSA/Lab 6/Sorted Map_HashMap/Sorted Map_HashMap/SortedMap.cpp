@@ -34,7 +34,15 @@ int SortedMap::hash2(TKey k) const
 	return 2 + abs;
 }
 
+//BC: Theta(1) - when the element is the first one
+//TC : O(n)
+//WC : Theta(n) - when the element is not in the map
 TValue SortedMap::add(TKey k, TValue v) {
+	/*
+		BC: Theta(1) - when the element is the first one
+		TC : O(n)
+		WC : Theta(n) - when the map is full
+	*/
 	int i = 0;
 	int start = hash1(k) % this->m;
 	int step = hash2(k) % this->m;
@@ -51,17 +59,16 @@ TValue SortedMap::add(TKey k, TValue v) {
 	//	pos = (pos + step) % ;
 	//}
 
-	while (i < this->m) {
-		if (this->T[i].first == k) {
-			TValue oldValue = this->T[i].second;
-			this->T[i].second = v;
-
-			return oldValue;
-		}
-		i++;
-	}
-
+	//while (i < this->m) {
+	//	if (this->T[i].first == k) {
+	//		TValue oldValue = this->T[i].second;
+	//		this->T[i].second = v;
+	//		return oldValue;
+	//	}
+	//	i++;
+	//}
 	i = 0;
+
 	while (i < this->m && this->T[pos] != NULL_TPAIR) {
 		//if (this->T[pos].first == k) {
 		//	TValue oldValue = this->T[pos].second;
@@ -69,6 +76,11 @@ TValue SortedMap::add(TKey k, TValue v) {
 		//	cout << "exsiting 2 " << k << " " << v << " " << oldValue << endl;
 		//	return oldValue;
 		//}
+		if (this->T[pos].first == k) {
+			TValue oldValue = this->T[pos].second;
+			this->T[pos].second = v;
+			return oldValue;
+		}
 		i++;
 		pos = (pos + step) % this->m;
 	}
@@ -80,16 +92,18 @@ TValue SortedMap::add(TKey k, TValue v) {
 		for (int j = 0; j < this->m * 2; j++) {
 			newT[j] = NULL_TPAIR;
 		}
+		int oldm = this->m;
+		this->m *= 2;
 		// Rehash all the elements into the new table
-		for (int j = 0; j < this->m; j++) {
-			if (this->T[j] != NULL_TPAIR) {
+		for (int j = 0; j < oldm; j++) {
+			if (this->T[j] != NULL_TPAIR && this->T[j] != DELETED_TPAIR) {
 				int newI = 0;
-				int newStart = hash1(this->T[j].first) % (this->m * 2);
-				int newStep = hash2(this->T[j].first) % (this->m * 2);
+				int newStart = hash1(this->T[j].first) % (oldm * 2);
+				int newStep = hash2(this->T[j].first) % (oldm * 2);
 				int newPos = newStart;
-				while (newI < this->m * 2 && newT[newPos] != NULL_TPAIR) {
+				while (newI < oldm * 2 && newT[newPos] != NULL_TPAIR) {
 					newI++;
-					newPos = (newPos + newStep) % (this->m * 2);
+					newPos = (newPos + newStep) % (oldm * 2);
 				}
 				newT[newPos] = this->T[j];
 
@@ -97,25 +111,53 @@ TValue SortedMap::add(TKey k, TValue v) {
 		}
 		delete[] this->T;
 		this->T = newT;
-		this->m = this->m * 2;
-	}
-	// Now add the new element
-	i = 0;
-	pos = hash1(k) % this->m;
-	step = hash2(k) % this->m;
-	while (i < this->m && this->T[pos] != NULL_TPAIR) {
-		i++;
-		pos = (pos + step) % this->m;
-	}
+		// Now add the new element
+		i = 0;
+		pos = hash1(k) % this->m;
+		step = hash2(k) % this->m;
+		while (i < this->m && this->T[pos] != NULL_TPAIR) {
+			i++;
+			pos = (pos + step) % this->m;
+		}
 
-	if (i < this->m) {
+		if (i < this->m) {
+			this->T[pos] = make_pair(k, v);
+			this->nrElems++;
+		}
+
+		return NULL_TVALUE;
+	}
+	else {
 		this->T[pos] = make_pair(k, v);
 		this->nrElems++;
+		return NULL_TVALUE;
 	}
-
-	return NULL_TVALUE;
+	
 }
 
+int SortedMap::getKeyRange() const {
+	/*
+		BC: Theta(m) - when the map has only one element
+		TC : Theta(m)
+		WC : Theta(m)
+	*/
+	if (this->nrElems == 0) {
+		return -1;
+	}
+	int min = this->T[0].first;
+	int max = this->T[0].first;
+	for (int i = 1; i < this->m; i++) {
+		if (this->T[i] != NULL_TPAIR) {
+			if (this->T[i].first < min) {
+				min = this->T[i].first;
+			}
+			if (this->T[i].first > max) {
+				max = this->T[i].first;
+			}
+		}
+	}
+	return max - min;
+}
 
 /*
 
@@ -206,44 +248,65 @@ TValue SortedMap::add(TKey k, TValue v) {
 }
 */
 TValue SortedMap::search(TKey k) const {
+	/*
+		BC: Theta(1) - when the element is the first one
+		TC : O(n)
+		WC : Theta(n) - when the element is not in the map
+	*/
 	//TODO - Implementation
 	int i = 0;
-	//int pos = hash1(k) % this->m;
-	//int step = hash2(k) % this->m;
-	////while (i < this->m) {
-	////	//cout << this->T[pos].first << " " << k << endl;
-	////	if (this->T[pos].first == k) {
-	////		return this->T[pos].second;
-	////	}
-	////	i++;
-	////	pos = (pos + step) % this->m;
-	////}
-
-	while (i < this->m) {
-		//cout << this->T[i].first << " " << k << endl;
-		if (this->T[i].first == k) {
-			return this->T[i].second;;
+	int pos = hash1(k) % this->m;
+	int step = hash2(k) % this->m;
+	while (i < this->m && this->T[pos] != NULL_TPAIR) {
+		if (this->T[pos].first == k) {
+			return this->T[pos].second;
 		}
 		i++;
+		pos = (pos + step) % this->m;
 	}
 
 	return NULL_TVALUE;
+
 }
 
 TValue SortedMap::remove(TKey k) {
+	
+		//BC: Theta(1) - when the element is the first one
+		//TC : O(n)
+		//WC : Theta(n) - when the element is not in the map
+	
 	//TODO - Implementation
-    int i = 0;
-	while (i < this->m) {
-		if (this->T[i].first == k) {
-			TValue oldValue = this->T[i].second;
-			this->T[i] = NULL_TPAIR;
+
+
+	int i = 0;
+	int pos = hash1(k) % this->m;
+	int step = hash2(k) % this->m;
+	while (i < this->m && this->T[pos] != NULL_TPAIR) {
+		//cout << this->T[pos].first << " " << k << endl;
+		if (this->T[pos].first == k) {
+			TValue oldValue = this->T[pos].second;
+			this->T[pos] = DELETED_TPAIR;
 			this->nrElems--;
 			return oldValue;
 		}
 		i++;
+		pos = (pos + step) % this->m;
 	}
 
 	return NULL_TVALUE;
+
+ //   int i = 0;
+	//while (i < this->m) {
+	//	if (this->T[i].first == k) {
+	//		TValue oldValue = this->T[i].second;
+	//		this->T[i] = NULL_TPAIR;
+	//		this->nrElems--;
+	//		return oldValue;
+	//	}
+	//	i++;
+	//}
+
+	//return NULL_TVALUE;
 }
 
 int SortedMap::size() const {

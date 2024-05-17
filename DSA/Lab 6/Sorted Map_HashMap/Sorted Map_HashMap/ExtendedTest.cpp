@@ -133,8 +133,7 @@ void rePopulateSMShift(SortedMap& sm, int cMin, int cMax, int shift) {
 	vector<int> keys = keysInRandomOrder(cMin, cMax);
 	int n = keys.size();
 	for (int i = 0; i < n; i++) {
-		TValue v = sm.add(keys[i], keys[i]-shift);
-		assert(v == keys[i]);
+		assert(sm.add(keys[i], keys[i] - shift) == keys[i]);
 	}
 }
 
@@ -318,11 +317,33 @@ void testIterator() {
 	testIterator(decreasing);
 }
 
+void testKeyRange() {
+	cout << "Test key range" << endl;
+	SortedMap sm(increasing);
+	int cMin = -100;
+	int cMax = 100;
+	vector<int> keys  = keysInRandomOrder(cMin, cMax);
+	populateSMEmpty(sm, cMin, cMax);
+	for (int c = cMin; c <= cMax; c++) {
+	  	assert(sm.search(c) == c);
+	}
+	assert(sm.size() == cMax - cMin + 1);
+	assert(sm.getKeyRange() == cMax - cMin);
+	for (int c = cMin; c <= cMax; c++) {
+		 sm.remove(c);
+		 assert(sm.search(c) == NULL_TVALUE);	
+	}
+	assert(sm.size() == 0);
+	assert(sm.isEmpty());
+	assert(sm.getKeyRange() == -1);
+}
+
 void testAllExtended() {
 	testCreate();
 	testAdd();
 	testSearch();
 	testRemove();
 	testIterator();
+	testKeyRange();
 	testQuantity();
 }
