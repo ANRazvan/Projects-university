@@ -1,0 +1,7 @@
+﻿  ExtendedTest.cpp
+D:\Facultate\Faculty-projects\DSA\Lab 6\Sorted Map_HashMap\Sorted Map_HashMap\ExtendedTest.cpp(116,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 6\Sorted Map_HashMap\Sorted Map_HashMap\ExtendedTest.cpp(126,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 6\Sorted Map_HashMap\Sorted Map_HashMap\ExtendedTest.cpp(134,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 6\Sorted Map_HashMap\Sorted Map_HashMap\ExtendedTest.cpp(143,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Faculty-projects\DSA\Lab 6\Sorted Map_HashMap\Sorted Map_HashMap\ExtendedTest.cpp(253,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Sorted Map_HashMap.vcxproj -> D:\Facultate\Faculty-projects\DSA\Lab 6\Sorted Map_HashMap\x64\Debug\Sorted Map_HashTable.exe
